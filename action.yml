@@ -6,6 +6,9 @@ inputs:
     required: true
     description: 'input description here'
     default: 'default value if applicable'
+  organization:
+    required: true
+    description: 'Name of the GitHub organization to fetch repositories from.'
   repo:
     required: false
     description: 'repository name i.e. owner/repo-name format'
