@@ -50,7 +50,7 @@ async function run(): Promise<void> {
         secretScanningAlerts
       };
     }
-
+     await delay(1000);
     createExcel(allData);
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message);
