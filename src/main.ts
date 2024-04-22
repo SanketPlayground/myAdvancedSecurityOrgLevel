@@ -14,14 +14,11 @@ async function run(): Promise<void> {
 
     const octokit = new Octokit({ auth: token });
 
-    const org = core.getInput('organization');
-    if (!organization) {
+    const org = core.getInput('org');
+    if (!org) {
       core.error('Please provide the organization name');
       return;
-    }else{
-      console.log("ORGNAME////////",organization)
     }
-
     const repos = await getOrganizationRepos(octokit, org);
     if (!repos || repos.length === 0) {
       core.error(`No repositories found in organization ${org}`);
