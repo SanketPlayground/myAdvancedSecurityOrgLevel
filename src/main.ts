@@ -63,7 +63,9 @@ async function getOrganizationRepos(octokit: Octokit, org: string): Promise<stri
   const response = await octokit.paginate(octokit.rest.repos.listForOrg, {
     org,
   });
-  return response.map((repo: any) => repo.full_name);
+   const repoNames = response.map((repo: any) => repo.full_name);
+  console.log('Repositories in organization:', repoNames);
+  return repoNames;
 }
 
 async function getSecretScanningReport(
