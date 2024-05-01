@@ -18,9 +18,9 @@ async function run(): Promise<void> {
     if (!organization) {
       core.error('Please provide the organization name');
       return;
-    }else{
-      console.log('orgorogrorg',organization)
     }
+    const repos = await getOrganizationRepos(octokit, org);
+    console.log('Repositories in organization:', repos);
     const repos = await getOrganizationRepos(octokit, org);
     if (!repos || repos.length === 0) {
       core.error(`No repositories found in organization ${org}`);
@@ -63,9 +63,7 @@ async function getOrganizationRepos(octokit: Octokit, org: string): Promise<stri
   const response = await octokit.paginate(octokit.rest.repos.listForOrg, {
     org,
   });
-   const repoNames = response.map((repo: any) => repo.full_name);
-  console.log('Repositories in organization:', repoNames);
-  return repoNames;
+  return response.map((repo: any) => repo.full_name);
 }
 
 async function getSecretScanningReport(
