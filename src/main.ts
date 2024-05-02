@@ -357,10 +357,10 @@ function getQuery(login: string, repoName: string, after: string): string {
 }
 
 async function createExcel(allData: { [key: string]: RepositoryData }): Promise<void> {
-  const wb = xlsx.utils.book_new();
-
   for (const repo in allData) {
     const { dgIssues, csIssues, dgInfo, secretScanningAlerts } = allData[repo];
+    const wb = xlsx.utils.book_new();
+
     const ws1 = xlsx.utils.aoa_to_sheet(dgIssues);
     const ws2 = xlsx.utils.aoa_to_sheet(csIssues);
     const ws3 = xlsx.utils.aoa_to_sheet(dgInfo);
@@ -370,9 +370,9 @@ async function createExcel(allData: { [key: string]: RepositoryData }): Promise<
     xlsx.utils.book_append_sheet(wb, ws2, `${repo}_csIssues`);
     xlsx.utils.book_append_sheet(wb, ws3, `${repo}_dgInfo`);
     xlsx.utils.book_append_sheet(wb, ws4, `${repo}_secretScanningAlerts`);
-  }
 
-  xlsx.writeFile(wb, 'alerts.xlsx');
+    xlsx.writeFile(wb, `${repo}_alerts.xlsx`);
+  }
 }
 
 run();
