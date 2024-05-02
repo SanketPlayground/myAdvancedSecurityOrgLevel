@@ -15,11 +15,10 @@ async function run(): Promise<void> {
     const octokit = new Octokit({ auth: token });
 
     const org = core.getInput('organization');
-    if (!organization) {
+    if (!org) {
       core.error('Please provide the organization name');
       return;
     }
-    const repos = await getOrganizationRepos(octokit, org);
     console.log('Repositories in organization:', repos);
     const repos = await getOrganizationRepos(octokit, org);
     if (!repos || repos.length === 0) {
