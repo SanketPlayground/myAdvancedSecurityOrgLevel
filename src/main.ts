@@ -2,6 +2,7 @@ import * as core from '@actions/core';
 import * as xlsx from 'xlsx';
 import { Octokit } from '@octokit/rest';
 import { graphql } from '@octokit/graphql';
+import * as fs from 'fs';
 
 async function run(): Promise<void> {
   try {
@@ -371,7 +372,10 @@ async function createExcel(allData: { [key: string]: RepositoryData }): Promise<
     xlsx.utils.book_append_sheet(wb, ws3, `${repo}_dgInfo`);
     xlsx.utils.book_append_sheet(wb, ws4, `${repo}_secretScanningAlerts`);
 
-    xlsx.writeFile(wb, `${repo}_alerts.xlsx`);
+    const excelFileName = `${repo}_alerts.xlsx`;
+    const excelFilePath = path.join(__dirname, excelFileName);
+
+    xlsx.writeFile(wb, excelFilePath);
   }
 }
 
